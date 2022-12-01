@@ -2266,7 +2266,7 @@ class calculateCalories
             $currentSum = array_sum($values);
 
             if (empty($max)) {
-                $max =$currentSum;
+                $max = $currentSum;
             } else {
                 if ($currentSum > $max) {
                     $max = $currentSum;
@@ -2274,7 +2274,18 @@ class calculateCalories
             }
         }
 
-        //  the result!
+        // second star
+        $sums = [];
+        foreach ($parts as $key => $values) {
+            $sums[] = array_sum($values);
+        }
+
+        rsort($sums);
+
+        //this is the second star: result
+        $topThree = $sums[0]+$sums[1]+$sums[2];
+
+        // for the first star :)
         return $max;
     }
 }
