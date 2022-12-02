@@ -31,35 +31,7 @@ class RockPaperScissors
             // PAPER B / Y
             // SCISSOR C / Z
             // first star
-            switch ($myChoice) {
-                case 'X':
-                    if ($opponentChoice == 'C') {
-                        $score += 6;
-                    }
-                    if ($opponentChoice == 'A') {
-                        $score += 3;
-                    }
-                    $score += 1;
-                    break;
-                case 'Y':
-                    if ($opponentChoice == 'A') {
-                        $score += 6;
-                    }
-                    if ($opponentChoice == 'B') {
-                        $score += 3;
-                    }
-                    $score += 2;
-                    break;
-                case 'Z':
-                    if ($opponentChoice == 'B') {
-                        $score += 6;
-                    }
-                    if ($opponentChoice == 'C') {
-                        $score += 3;
-                    }
-                    $score += 3;
-                    break;
-            }
+            $scoreForTheFirstStar = $this->computeScore($myChoice, $opponentChoice, $score);
             // end of first star
 
             //second star
@@ -77,7 +49,7 @@ class RockPaperScissors
                     break;
             }
 
-            $score = $this->computeScore($myChoice, $opponentChoice);
+            $scoreForTheSecondStar = $this->computeScore($myChoice, $opponentChoice, $score = 0);
         }
 
         // => first star = 12458
@@ -94,6 +66,7 @@ class RockPaperScissors
             case 'Z':
                 return 'win';
         }
+        return null;
     }
 
     public function win($opponentChoice) {
@@ -134,9 +107,8 @@ class RockPaperScissors
         return null;
     }
 
-    public function computeScore($myChoice, $opponentChoice)
+    public function computeScore($myChoice, $opponentChoice, $score)
     {
-        $score = 0;
         switch ($myChoice) {
             case 'X':
                 if ($opponentChoice == 'C') {
