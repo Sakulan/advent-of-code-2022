@@ -30,6 +30,7 @@ class RockPaperScissors
             // ROCK A / X
             // PAPER B / Y
             // SCISSOR C / Z
+            // first star
             switch ($myChoice) {
                 case 'X':
                     if ($opponentChoice == 'C') {
@@ -59,8 +60,113 @@ class RockPaperScissors
                     $score += 3;
                     break;
             }
+            // end of first star
+
+            //second star
+            $howTheRoundsEnd = $this->howTheRoundsEnd($myChoice);
+
+            switch ($howTheRoundsEnd) {
+                case 'lose':
+                    $myChoice = $this->lose($opponentChoice);
+                    break;
+                case 'win':
+                    $myChoice = $this->win($opponentChoice);
+                    break;
+                case 'draw':
+                    $myChoice = $this->draw($opponentChoice);
+                    break;
+            }
+
+            $score = $this->computeScore($myChoice, $opponentChoice);
         }
 
         // => first star = 12458
+        // => second star = 12683
+    }
+
+    public function howTheRoundsEnd($playerChoice)
+    {
+        switch ($playerChoice) {
+            case 'X':
+                return 'lose';
+            case 'Y':
+                return 'draw';
+            case 'Z':
+                return 'win';
+        }
+    }
+
+    public function win($opponentChoice) {
+        switch ($opponentChoice) {
+            case 'A':
+                return 'Y';
+            case 'B':
+                return 'Z';
+            case 'C':
+                return 'X';
+        }
+        return null;
+    }
+
+    public function lose($opponentChoice) {
+        switch ($opponentChoice) {
+            case 'A':
+                return 'Z';
+            case 'B':
+                return 'X';
+            case 'C':
+                return 'Y';
+        }
+        return null;
+    }
+
+    public function draw($opponentChoice)
+    {
+        switch ($opponentChoice) {
+            case 'A':
+                return 'X';
+            case 'B':
+                return 'Y';
+            case 'C':
+                return 'Z';
+        }
+
+        return null;
+    }
+
+    public function computeScore($myChoice, $opponentChoice)
+    {
+        $score = 0;
+        switch ($myChoice) {
+            case 'X':
+                if ($opponentChoice == 'C') {
+                    $score += 6;
+                }
+                if ($opponentChoice == 'A') {
+                    $score += 3;
+                }
+                $score += 1;
+                break;
+            case 'Y':
+                if ($opponentChoice == 'A') {
+                    $score += 6;
+                }
+                if ($opponentChoice == 'B') {
+                    $score += 3;
+                }
+                $score += 2;
+                break;
+            case 'Z':
+                if ($opponentChoice == 'B') {
+                    $score += 6;
+                }
+                if ($opponentChoice == 'C') {
+                    $score += 3;
+                }
+                $score += 3;
+                break;
+        }
+
+        return $score;
     }
 }
