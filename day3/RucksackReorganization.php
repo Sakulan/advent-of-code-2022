@@ -14,11 +14,31 @@ class RucksackReorganization
         }
 
         $score = 0;
+        // first star
         foreach ($parts as $key => $values) {
             $firstSplit = str_split($values[0]);
             $secondSplit = str_split($values[1]);
 
             $samesValues = array_intersect($firstSplit, $secondSplit);
+            $letter = current($samesValues);
+
+            if (ctype_upper($letter)) {
+                $score += $this->getPositionUppercase($letter);
+            } else {
+                $score += $this->getPositionLowercase($letter);
+            }
+        }
+
+        // second star
+        $parts = array_chunk($inputIntoArray, 3);
+
+        foreach ($parts as $key => $values) {
+            $firstSplit = str_split($values[0]);
+            $secondSplit = str_split($values[1]);
+            $thirdSplit = str_split($values[2]);
+
+            $samesValues = array_intersect($firstSplit, $secondSplit, $thirdSplit);
+
             $letter = current($samesValues);
 
             if (ctype_upper($letter)) {
